@@ -98,25 +98,26 @@ export default function EditarManutencao() {
     router.push("/");
   };
   return (
-      <div className="grid  grid-rows-[auto_1fr] h-full w-full">
+      <div className="grid grid-rows-[auto_1fr] h-full w-full">
         <nav className="bg-[#D9A05B] z-10">
-          <Navbar />
+          <Navbar/>
         </nav>
-        <div className="flex h-screen">
-          <aside className="w-64 bg-white outline outline-1  outline-black shadow-md shadow-black">
-            <Sidebar />
+        <div className="flex h-full">
+          <aside className="hidden md:block w-64 bg-white outline outline-1  outline-black shadow-md shadow-black">
+            <Sidebar/>
           </aside>
-          <main className="  w-full h-full bg-white outline-black outline outline-0 shadow-sm shadow-black ">
-              <nav className="bg-[#D9A05B] p-4 h-[92px] shadow-md">
-                <div className="container mx-auto flex my-4 items-center">
-                  <h1 className="text-xl font-bold text-white">Editando Manutenção</h1>
-                </div>
-              </nav>
-            <div className="container m-20 p-0">
-              <div className="mr-[450px] m-5 grid grid-cols-3 gap-x-2 gap-y-10 ">
-                <div className="flex items-center place-items-center  place-self-center">
-                  <label htmlFor="data_solicitacao" className="block text-gray-700 text-sm font-bold mb-0 mr-4">
-                    Data de solicitação
+          <main className="w-full h-full bg-white outline-black outline outline-0 shadow-sm shadow-black ">
+            <nav className="bg-[#D9A05B] p-4 h-[92px] shadow-md">
+              <div className="container mx-auto flex my-4 items-center">
+                <h1 className="text-xl font-bold text-white">Editando Manutenção</h1>
+              </div>
+            </nav>
+            <div className="container mx-auto p-4 md:p-10">
+              <form onSubmit={editManutencao} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Data de Solicitação e Conclusão */}
+                <div>
+                  <label htmlFor="data_solicitacao" className="block text-gray-700 text-sm font-bold mb-2">
+                    Data de solicitação:
                   </label>
                   <input
                       type="date"
@@ -128,16 +129,16 @@ export default function EditarManutencao() {
                             data_solicitacao: e.target.value,
                           })
                       }
-                      className="shadow appearance-none border rounded-3xl w-46 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      className="shadow appearance-none border rounded-3xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   />
                 </div>
-                <div className="flex items-center place-items-center  place-self-center">
-                  <label htmlFor="data_solicitacao" className="block text-gray-700 text-sm font-bold mb-0 mr-4">
-                    Data de Conclusão
+                <div>
+                  <label htmlFor="data_conclusao" className="block text-gray-700 text-sm font-bold mb-2">
+                    Data de Conclusão:
                   </label>
                   <input
                       type="date"
-                      id="data_solicitacao"
+                      id="data_conclusao"
                       value={manutencao.data_conclusao}
                       onChange={(e) =>
                           setManutencao({
@@ -145,23 +146,22 @@ export default function EditarManutencao() {
                             data_conclusao: e.target.value,
                           })
                       }
-                      className="shadow appearance-none border rounded-3xl w-46 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      className="shadow appearance-none border rounded-3xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   />
                 </div>
-                <div className="flex items-center">
-                  <label
-                      htmlFor="criticidade"
-                      className="block text-gray-700 text-sm font-bold mb-0 mr-4"
-                  >
-                    Criticidade
+                {/* Criticidade e Quarto */}
+                <div>
+                  <label htmlFor="criticidade" className="block text-gray-700 text-sm font-bold mb-2">
+                    Criticidade:
                   </label>
                   <select
                       id="criticidade"
                       value={manutencao.criticidade}
-                      onChange={(e) =>
-                          setManutencao({...manutencao, criticidade: e.target.value})
-                      }
-                      className="shadow appearance-none border rounded-3xl w-46 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      onChange={(e) => setManutencao({
+                        ...manutencao,
+                        criticidade: e.target.value
+                      })}
+                      className="shadow appearance-none border rounded-3xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   >
                     <option value="Urgente">Urgente</option>
                     <option value="Alta">Alta</option>
@@ -169,30 +169,42 @@ export default function EditarManutencao() {
                     <option value="Baixa">Baixa</option>
                   </select>
                 </div>
-                <div className="flex items-center">
-                  <label
-                      htmlFor="quarto"
-                      className="block text-gray-700 text-sm font-bold ml-5 mb-0 mr-4"
-                  >
-                    Quarto
+                <div>
+                  <label htmlFor="quarto" className="block text-gray-700 text-sm font-bold mb-2">
+                    Quarto:
                   </label>
                   <input
-                      id="quarto"
                       type="text"
+                      id="quarto"
                       placeholder="Número do quarto"
                       value={manutencao.quarto}
-                      onChange={(e) =>
-                          setManutencao({...manutencao, quarto: e.target.value})
-                      }
-                      className="shadow appearance-none border rounded-3xl w-46 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      onChange={(e) => setManutencao({...manutencao, quarto: e.target.value})}
+                      className="shadow appearance-none border rounded-3xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   />
                 </div>
-                <div className="flex items-center">
+
+                {/* Usuário e Funcionário */}
+                <div>
+                  <label htmlFor="nome_usuario" className="block text-gray-700 text-sm font-bold mb-2">
+                    Usuário:
+                  </label>
+                  <input
+                      type="text"
+                      id="nome_usuario"
+                      value={manutencao.nome_usuario}
+                      onChange={(e) =>
+                          setManutencao({...manutencao, nome_usuario: e.target.value})
+                      }
+                      className="shadow appearance-none border rounded-3xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  />
+                </div>
+
+                <div>
                   <label
                       htmlFor="funcionario"
-                      className="block text-gray-700 text-sm font-bold  mb-0 mr-4"
+                      className="block text-gray-700 text-sm font-bold  mb-2"
                   >
-                    Funcionario
+                    Funcionario:
                   </label>
                   <input
                       id="funcionario"
@@ -202,70 +214,59 @@ export default function EditarManutencao() {
                       onChange={(e) =>
                           setManutencao({...manutencao, funcionario: e.target.value})
                       }
-                      className="shadow appearance-none border rounded-3xl w-46 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      className="shadow appearance-none border rounded-3xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   />
                 </div>
-                <div className="flex items-center place-items-center  place-self-center">
-                  <label htmlFor="nome_usuario" className="block text-gray-700 text-sm font-bold mb-0 mr-4">
-                    Usuário
+
+                {/* Assunto */}
+                <div className="md:col-span-2">
+                  <label htmlFor="assunto" className="block text-gray-700 text-sm font-bold mb-2">
+                    Assunto:
                   </label>
                   <input
                       type="text"
-                      id="nome_usuario"
-                      value={manutencao.nome_usuario}
+                      id="assunto"
+                      value={manutencao.assunto}
                       onChange={(e) =>
-                          setManutencao({...manutencao, nome_usuario: e.target.value})
+                          setManutencao({...manutencao, assunto: e.target.value})
                       }
-                      className="shadow appearance-none border rounded-3xl w-46 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      className="shadow appearance-none border rounded-3xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   />
                 </div>
-              </div>
-              <div className="flex items-center  m-2 p-8">
-                <label
-                    htmlFor="assunto"
-                    className="block   text-gray-700 text-sm font-bold mb-0 mr-4"
-                >
-                  Assunto
-                </label>
-                <input
-                    id="assunto"
-                    type="text"
-                    value={manutencao.assunto}
-                    onChange={(e) =>
-                        setManutencao({...manutencao, assunto: e.target.value})
-                    }
-                    className="shadow appearance-none border rounded-3xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-              </div>
-              <div className="col-span-2 items-center m-2 p-8">
-                <label
-                    htmlFor="descricao"
-                    className="block text-gray-700 text-sm font-bold mb-2"
-                >
-                  Descrição
-                </label>
-                <textarea
-                    id="descricao"
-                    value={manutencao.descricao}
-                    onChange={(e) =>
-                        setManutencao({ ...manutencao, descricao: e.target.value })
-                    }
-                    className="shadow appearance-none border rounded-3xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-32"
-                />
-              </div>
-              <div className="flex justify-end mt-4 p-9">
-                <button
-                    className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-3xl mr-2 focus:outline-none focus:shadow-outline"
-                >
-                  <a href="/">Voltar</a>
-                </button>
-                <button
-                    className="bg-green-500 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-3xl focus:outline-none focus:shadow-outline"
-                    onClick={editManutencao}
-                >
-                  Salvar
-                </button>
-              </div>
+
+                {/* Descrição */}
+                <div className="md:col-span-2">
+                  <label htmlFor="descricao" className="block text-gray-700 text-sm font-bold mb-2">
+                    Descrição:
+                  </label>
+                  <textarea
+                      id="descricao"
+                      value={manutencao.descricao}
+                      onChange={(e) =>
+                          setManutencao({...manutencao, descricao: e.target.value})
+                      }
+                      className="shadow appearance-none border rounded-3xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-32"
+                  />
+                </div>
+
+                {/* Botões */}
+                <div className="md:col-span-2 flex justify-end mt-4">
+                  <button
+                      type="button"
+                      onClick={() => router.push("/")}
+                      className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-3xl mr-2 focus:outline-none focus:shadow-outline"
+                  >
+                    Voltar
+                  </button>
+                  <button
+                      type="submit"
+                      className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-3xl focus:outline-none focus:shadow-outline"
+                      onClick={editManutencao}
+                  >
+                    Salvar
+                  </button>
+                </div>
+              </form>
             </div>
           </main>
         </div>

@@ -103,118 +103,93 @@ export default function Home() {
     };
 
     return (
-        <div className="grid  grid-rows-[auto_1fr] h-full w-full">
+        <div className="grid grid-rows-[auto_1fr] h-full w-full">
             <nav className="bg-[#D9A05B] z-10">
                 <Navbar/>
             </nav>
-            <div className="flex h-screen">
-                <aside className="w-64 bg-white outline outline-1  outline-black shadow-md shadow-black">
+            <div className="flex  h-full">
+                <aside
+                    className="hidden md:block w-64 bg-white outline outline-1  outline-black shadow-md shadow-black">
                     <Sidebar/>
                 </aside>
-                <main className="  w-full h-full bg-white outline-black outline outline-0 shadow-sm shadow-black ">
+                <main className="w-full h-full bg-white outline-black outline outline-0 shadow-sm text-black shadow-black ">
                     <nav className="bg-[#D9A05B] p-4 h-[92px] shadow-md">
                         <div className="container mx-auto flex my-4 items-center">
                             <h1 className="text-xl font-bold text-white">Criando Manutenção</h1>
                         </div>
                     </nav>
-                    <div className="container m-20 p-0">
-                        <div className="mr-[450px] grid grid-cols-3 gap-x-2 gap-y-10 ">
+
+                    {/* Conteúdo principal (Formulário) */}
+                    <div className="container mx-auto p-4 md:p-10">
+                        <form onSubmit={handleSalvar} className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {/* Campo Data */}
-                            <div className="flex items-center place-items-center  place-self-center">
-                                <label htmlFor="data" className="block text-gray-700 text-sm font-bold mb-0 mr-4">
-                                    Data
-                                </label>
-                                <input
-                                    type="date"
-                                    id="data"
-                                    value={newManutencao.data_solicitacao}
-                                    onChange={(e) =>
-                                        setNewManutencao({...newManutencao, data_solicitacao: e.target.value})
-                                    }
-                                    className="shadow appearance-none border rounded-3xl w-46 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                />
+                            <div>
+                                <label htmlFor="data"
+                                       className="block text-gray-700 text-sm font-bold mb-2">Data:</label>
+                                <input type="date" id="data" value={newManutencao.data_solicitacao}
+                                       onChange={(e) => setNewManutencao({
+                                           ...newManutencao,
+                                           data_solicitacao: e.target.value
+                                       })} className="w-full border rounded-3xl p-2"/>
                             </div>
 
                             {/* Campo Criticidade */}
-                            <div className="flex items-center">
+                            <div>
                                 <label htmlFor="criticidade"
-                                       className="block text-gray-700 text-sm font-bold mb-0 mr-4">
-                                    Criticidade
-                                </label>
-                                <select
-                                    id="criticidade"
-                                    value={newManutencao.criticidade}
-                                    onChange={(e) =>
-                                        setNewManutencao({...newManutencao, criticidade: e.target.value})
-                                    }
-                                    className="shadow appearance-none border rounded-3xl w-46 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                >
+                                       className="block text-gray-700 text-sm font-bold mb-2">Criticidade:</label>
+                                <select id="criticidade" value={newManutencao.criticidade}
+                                        onChange={(e) => setNewManutencao({
+                                            ...newManutencao,
+                                            criticidade: e.target.value
+                                        })} className="w-full border rounded-3xl p-2">
                                     <option value="Urgente">Urgente</option>
                                     <option value="Alta">Alta</option>
                                     <option value="Média">Média</option>
                                     <option value="Baixa">Baixa</option>
                                 </select>
                             </div>
-                            <div className="flex items-center">
-                                <label htmlFor="quarto" className="block text-gray-700 text-sm font-bold mb-0 mr-4">
-                                    Quarto
-                                </label>
-                                <input
-                                    id="quarto"
-                                    type="text"
-                                    placeholder="Número do quarto"
-                                    value={newManutencao.quarto}
-                                    onChange={(e) =>
-                                        setNewManutencao({...newManutencao, quarto: e.target.value})
-                                    }
-                                    className="shadow appearance-none border rounded-3xl w-46 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                />
+
+                            {/* Campo Quarto */}
+                            <div>
+                                <label htmlFor="quarto"
+                                       className="block text-gray-700 text-sm font-bold mb-2">Quarto:</label>
+                                <input type="text" id="quarto" placeholder="Número do quarto"
+                                       value={newManutencao.quarto}
+                                       onChange={(e) => setNewManutencao({...newManutencao, quarto: e.target.value})}
+                                       className="w-full border rounded-3xl p-2"/>
                             </div>
 
-                        </div>
-                        <div className="flex items-center  m-2 p-8">
-                            <label htmlFor="assunto" className="block   text-gray-700 text-sm font-bold mb-0 mr-4">
-                                Assunto
-                            </label>
-                            <input
-                                id="assunto"
-                                type="text"
-                                placeholder="Pia quebrada"
-                                value={newManutencao.assunto}
-                                onChange={(e) =>
-                                    setNewManutencao({...newManutencao, assunto: e.target.value})
-                                }
-                                className="shadow appearance-none border rounded-3xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            />
-                        </div>
-                        <div className="col-span-2 items-center m-2  p-8">
-                            <label htmlFor="descricao" className="block text-gray-700 text-sm font-bold mb-2">
-                                Descrição
-                            </label>
-                            <textarea
-                                id="descricao"
-                                value={newManutencao.descricao}
-                                placeholder="Gostaria de solicitar a realização de manutenção na pia do banheiro..."
-                                onChange={(e) =>
-                                    setNewManutencao({...newManutencao, descricao: e.target.value})
-                                }
-                                className="shadow appearance-none border rounded-3xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-32"
-                            />
-                        </div>
-                        <div className="flex justify-end mt-4 p-9">
-                            <button
-                                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-3xl mr-2 focus:outline-none focus:shadow-outline"
+                            {/* Campo Assunto (col-span-2 para ocupar 2 colunas) */}
+                            <div className="md:col-span-2">
+                                <label htmlFor="assunto"
+                                       className="block text-gray-700 text-sm font-bold mb-2">Assunto:</label>
+                                <input type="text" id="assunto" placeholder="Pia quebrada" value={newManutencao.assunto}
+                                       onChange={(e) => setNewManutencao({...newManutencao, assunto: e.target.value})}
+                                       className="w-full border rounded-3xl p-2"/>
+                            </div>
 
-                            >
-                                <a href="/">Voltar</a>
-                            </button>
-                            <button
-                                className="bg-green-500 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-3xl focus:outline-none focus:shadow-outline"
-                                onClick={handleSalvar}
-                            >
-                                Salvar
-                            </button>
-                        </div>
+                            {/* Campo Descrição (col-span-2 para ocupar 2 colunas) */}
+                            <div className="md:col-span-2">
+                                <label htmlFor="descricao"
+                                       className="block text-gray-700 text-sm font-bold mb-2">Descrição:</label>
+                                <textarea id="descricao" value={newManutencao.descricao}
+                                          placeholder="Gostaria de solicitar a realização de manutenção na pia do banheiro..."
+                                          onChange={(e) => setNewManutencao({
+                                              ...newManutencao,
+                                              descricao: e.target.value
+                                          })} className="w-full border rounded-3xl p-2 h-32"/>
+                            </div>
+
+                            {/* Botões (col-span-2 para ocupar 2 colunas e alinhamento à direita) */}
+                            <div className="md:col-span-2 flex justify-end mt-4">
+                                <button type="button" onClick={() => router.push("/")}
+                                        className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-3xl mr-2 focus:outline-none focus:shadow-outline">Voltar
+                                </button>
+                                <button type="submit"
+                                        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-3xl focus:outline-none focus:shadow-outline">Salvar
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </main>
             </div>
