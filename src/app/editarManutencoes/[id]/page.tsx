@@ -103,11 +103,11 @@ export default function EditarManutencao() {
           <Navbar/>
         </nav>
         <div className="flex h-full">
-          <aside className="hidden md:block w-64 bg-white outline outline-1  outline-black shadow-md shadow-black">
+          <aside className="hidden  h-screen md:block w-64 bg-white outline outline-1  outline-black shadow-md shadow-black">
             <Sidebar/>
           </aside>
           <main className="w-full h-full bg-white outline-black outline outline-0 shadow-sm shadow-black ">
-            <nav className="bg-[#D9A05B] p-4 h-[92px] shadow-md">
+            <nav className="bg-[#D9A05B] p-4 h-[92px]  shadow-md">
               <div className="container mx-auto flex my-4 items-center">
                 <h1 className="text-xl font-bold text-white">Editando Manutenção</h1>
               </div>

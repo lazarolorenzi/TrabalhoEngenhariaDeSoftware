@@ -103,13 +103,13 @@ export default function Home() {
     };
 
     return (
-        <div className="grid grid-rows-[auto_1fr] h-full w-full">
+        <div className="grid  grid-rows-[auto_1fr] h-full w-full">
             <nav className="bg-[#D9A05B] z-10">
                 <Navbar/>
             </nav>
-            <div className="flex  h-full">
+            <div className="flex flex-auto h-full ">
                 <aside
-                    className="hidden md:block w-64 bg-white outline outline-1  outline-black shadow-md shadow-black">
+                    className="hidden md:block h-screen w-64 bg-white outline outline-1  outline-black shadow-md shadow-black">
                     <Sidebar/>
                 </aside>
                 <main className="w-full h-full bg-white outline-black outline outline-0 shadow-sm text-black shadow-black ">
